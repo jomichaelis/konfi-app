@@ -1,6 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import Calendar from './views/Calendar.vue'
+import Contacts from './views/Contacts.vue'
+import Worships from './views/Worships.vue'
+import HowTo from './views/HowTo.vue'
+import LogIn from './views/LogIn.vue'
+import WorshipDetail from './views/WorshipDetail.vue'
+import AddGodi from './views/AddGodi.vue'
 
 Vue.use(Router)
 
@@ -14,12 +21,39 @@ export default new Router({
       component: Home
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      path: '/calendar',
+      name: 'calendar',
+      component: Calendar
+    },
+    {
+      path: '/contacts',
+      name: 'contacts',
+      component: Contacts
+    },
+    {
+      path: '/worships',
+      name: 'worships',
+      component: Worships
+    },
+    {
+      path: '/worships/:id',
+      props: true,
+      component: WorshipDetail
+    },
+    {
+      path: '/howto',
+      name: 'howto',
+      component: HowTo
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LogIn
+    },
+    {
+      path: '/addgodi',
+      name: 'addgodi',
+      component: AddGodi
     }
   ]
 })
