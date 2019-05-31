@@ -14,5 +14,6 @@ new Vue({
   render: h => h(App),
   created() {
     this.$store.dispatch('loadGodis')
+    this.$store.dispatch('loadUsers')
   }
 }).$mount('#app')

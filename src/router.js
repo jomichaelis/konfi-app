@@ -8,6 +8,8 @@ import HowTo from './views/HowTo.vue'
 import LogIn from './views/LogIn.vue'
 import WorshipDetail from './views/WorshipDetail.vue'
 import AddGodi from './views/AddGodi.vue'
+import AddUser from './views/AddUser.vue'
+import Documents from './views/Documents.vue'
 
 Vue.use(Router)
 
@@ -54,6 +56,16 @@ export default new Router({
       path: '/addgodi',
       name: 'addgodi',
       component: AddGodi
+    },
+    {
+      path: '/adduser',
+      name: 'adduser',
+      component: AddUser
+    },
+    {
+      path: '/documents',
+      name: 'documents',
+      component: Documents
     }
   ]
 })

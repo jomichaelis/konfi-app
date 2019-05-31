@@ -32,16 +32,15 @@
                 <v-time-picker v-model="time" format="24hr"></v-time-picker>
               </v-menu>
             </v-flex>
-            <h3>{{submittableDateTime}}</h3>
           </v-layout>
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <v-text-field name="pfarrer" label="Pfarrer" id="pfarrer" v-model="pfarrer" required></v-text-field>
+              <v-text-field name="pfarrer" label="Pfarrer" id="pfarrer" v-model="pfarrer" required prepend-icon="person"></v-text-field>
             </v-flex>
           </v-layout>
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <v-select name="color" :items="['blue', 'red darken-4', 'green darken-4', 'white']" label="Farbe" required v-model="color"></v-select>
+              <v-select name="color" :items="['blue', 'red darken-4', 'green darken-4', 'white']" label="Farbe" required v-model="color" prepend-icon="color_lens" ></v-select>
             </v-flex>
           </v-layout>
           <v-layout row>

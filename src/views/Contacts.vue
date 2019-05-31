@@ -67,27 +67,11 @@
 </template>
 
 <script>
-import db from '@/fb'
-
 export default {
-  data() {
-    return {
-      user: []
+  computed: {
+    user() {
+      return this.$store.getters.loadedUsers
     }
-  },
-  created() {
-    db.collection('user').onSnapshot(res => {
-      const changes = res.docChanges();
-      changes.forEach(change => {
-        if (change.type === 'added') {
-          this.user.push({
-            ...change.doc.data(),
-            id: change.doc.id
-          })
-        }
-      })
-    })
   }
-
 }
 </script>

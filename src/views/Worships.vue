@@ -49,24 +49,12 @@
 
 <script>
 export default {
-  data() {
-    return {
-      dialog: false,
-      user: null,
-      value: 60
-    }
-  },
   computed: {
     godis() {
       return this.$store.getters.loadedGodis
-    }
-  },
-  methods: {
-    writeFortschritt() {
-      this.value = 0.5 + 0.2;
     },
-    submitGodi() {
-
+    value() {
+      return (Math.round((parseInt(this.$store.getters.loadedGodis.length)/24)*100))
     }
   }
 }
