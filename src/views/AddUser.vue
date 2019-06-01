@@ -1,5 +1,5 @@
 <template>
-<div class="calendar">
+<div class="calendar" v-if="loggedIn">
   <v-flex xs12 text-xs-center mt-5>
     <h1 class="purple--text">User hinzufügen</h1>
   </v-flex>
@@ -63,6 +63,9 @@ export default {
         this.last_name !== '' &&
         this.role !== '' &&
         this.imageUrl !== ''
+    },
+    loggedIn() {
+      return (this.$store.getters.user !== null)
     }
   },
   methods: {

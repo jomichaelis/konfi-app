@@ -1,5 +1,5 @@
 <template>
-<div class="worships">
+<div class="worships" v-if="loggedIn">
   <v-flex xs12 text-xs-center mt-5>
     <h1 class="purple--text">Gottesdienste</h1>
   </v-flex>
@@ -55,6 +55,9 @@ export default {
     },
     value() {
       return (Math.round((parseInt(this.$store.getters.loadedGodis.length)/24)*100))
+    },
+    loggedIn() {
+      return (this.$store.getters.user !== null)
     }
   }
 }

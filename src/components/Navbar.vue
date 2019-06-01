@@ -2,7 +2,7 @@
 <nav>
 
   <v-toolbar app color="purple lighten-4">
-    <v-toolbar-side-icon @click="drawer = !drawer" class="purple--text"></v-toolbar-side-icon>
+    <v-toolbar-side-icon @click="drawer = !drawer" class="purple--text" v-if="loggedIn"></v-toolbar-side-icon>
     <v-toolbar-title class="text-uppercase purple--text">
       <span class="font-weight-light">Konfi</span>
       <span>Online</span>
@@ -19,7 +19,7 @@
     </v-btn>
   </v-toolbar>
 
-  <v-navigation-drawer app v-model="drawer" class="purple">
+  <v-navigation-drawer app v-model="drawer" class="purple" v-if="loggedIn">
     <v-layout column align-center>
       <v-flex class="mt-5" color="black">
         <v-avatar size="100">
