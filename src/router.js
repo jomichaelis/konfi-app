@@ -9,6 +9,7 @@ import LogIn from './views/LogIn.vue'
 import WorshipDetail from './views/WorshipDetail.vue'
 import AddGodi from './views/AddGodi.vue'
 import AddUser from './views/AddUser.vue'
+import AddEvent from './views/AddEvent.vue'
 import Documents from './views/Documents.vue'
 
 Vue.use(Router)
@@ -61,6 +62,11 @@ export default new Router({
       path: '/adduser',
       name: 'adduser',
       component: AddUser
+    },
+    {
+      path: '/addevent',
+      name: 'addevent',
+      component: AddEvent
     },
     {
       path: '/documents',

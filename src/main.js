@@ -15,5 +15,6 @@ new Vue({
   created() {
     this.$store.dispatch('loadGodis')
     this.$store.dispatch('loadUsers')
+    this.$store.dispatch('loadEvents')
   }
 }).$mount('#app')
