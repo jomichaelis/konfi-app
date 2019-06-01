@@ -1,10 +1,10 @@
 <template>
-<div class="worships">
+<div class="worships" v-if="loggedIn">
   <v-flex xs12 text-xs-center mt-5>
     <h1 class="purple--text">Gottesdienst - Detail</h1>
   </v-flex>
 
-  <v-container class="my-5" :class="meetup.color" >
+  <v-container class="my-5" :class="meetup.color">
     <h1 class="white--text">Titel: {{meetup.title}}</h1>
     <h1 class="white--text">Datum: {{meetup.date}}</h1>
     <h1 class="white--text">Uhrzeit: {{meetup.time}}</h1>
@@ -16,12 +16,15 @@
 </template>
 
 <script>
-  export default {
-    props: ['id'],
-    computed: {
-      meetup () {
-        return this.$store.getters.loadedGodi(this.id)
-      }
+export default {
+  props: ['id'],
+  computed: {
+    meetup() {
+      return this.$store.getters.loadedGodi(this.id)
+    },
+    loggedIn() {
+      return (this.$store.getters.user !== null)
     }
   }
+}
 </script>

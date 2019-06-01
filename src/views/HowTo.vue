@@ -1,5 +1,5 @@
 <template>
-<div class="home">
+<div class="home" v-if="loggedIn">
   <v-flex xs12 text-xs-center mt-5>
     <h1 class="purple--text">How-To</h1>
   </v-flex>
@@ -29,6 +29,11 @@ export default {
   data() {
     return {
       date: new Date()
+    }
+  },
+  computed: {
+    loggedIn() {
+      return (this.$store.getters.user !== null)
     }
   }
 }

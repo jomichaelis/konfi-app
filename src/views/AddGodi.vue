@@ -1,5 +1,5 @@
 <template>
-<div class="calendar">
+<div class="calendar" v-if="loggedIn">
   <v-flex xs12 text-xs-center mt-5>
     <h1 class="purple--text">Gottesdienst hinzufügen</h1>
   </v-flex>
@@ -76,6 +76,9 @@ export default {
     },
     colors() {
       return this.$store.getters.loadedColors
+    },
+    loggedIn() {
+      return (this.$store.getters.user !== null)
     }
   },
   methods: {

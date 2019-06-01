@@ -1,5 +1,5 @@
 <template>
-<div class="contacts">
+<div class="contacts" v-if="loggedIn">
   <v-flex xs12 text-xs-center mt-5>
     <h1 class="purple--text">Kontakte</h1>
   </v-flex>
@@ -71,6 +71,9 @@ export default {
   computed: {
     user() {
       return this.$store.getters.loadedUsers
+    },
+    loggedIn() {
+      return (this.$store.getters.user !== null)
     }
   }
 }

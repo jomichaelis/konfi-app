@@ -1,5 +1,5 @@
 <template>
-<div class="home">
+<div class="home" v-if="loggedIn">
   <v-flex xs12 text-xs-center mt-5>
     <h1 class="purple--text">Dokumente</h1>
   </v-flex>
@@ -71,6 +71,11 @@ export default {
           text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
         }
       ]
+    }
+  },
+  computed: {
+    loggedIn() {
+      return (this.$store.getters.user !== null)
     }
   },
   methods: {

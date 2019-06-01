@@ -1,5 +1,5 @@
 <template>
-<div class="calendar">
+<div class="calendar" v-if="loggedIn">
   <v-flex xs12 text-xs-center mt-5>
     <h1 class="purple--text">Kalender</h1>
   </v-flex>
@@ -40,6 +40,9 @@ export default {
   computed: {
     sortedEvents() {
       return this.$store.getters.loadedEvents.sort((a, b) => a['date'] < b['date'] ? -1 : 1)
+    },
+    loggedIn() {
+      return (this.$store.getters.user !== null)
     }
   }
 }

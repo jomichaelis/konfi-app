@@ -1,5 +1,5 @@
 <template>
-<div class="home">
+<div class="home" v-if="loggedIn">
   <v-flex xs12 text-xs-center mt-5>
     <h1 class="purple--text">Home</h1>
   </v-flex>
@@ -92,7 +92,12 @@ export default {
       date: "13.10.2019"
     },
     progress: 0.7
-  })
+  }),
+  computed: {
+    loggedIn() {
+      return (this.$store.getters.user !== null)
+    }
+  }
 }
 </script>
 
