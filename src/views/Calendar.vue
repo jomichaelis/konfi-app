@@ -22,7 +22,7 @@
                 </v-flex>
               </v-layout>
             </template>
-            <v-card v-bind:dark="event.dark" v-bind:color="event.color">
+            <v-card :dark="event.dark" v-bind:color="event.color">
               <v-card-text class="font-weight-light">{{event.descr}}</v-card-text>
             </v-card>
           </v-expansion-panel-content>

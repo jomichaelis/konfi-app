@@ -10,6 +10,7 @@ export const store = new Vuex.Store({
     loadedGodis: [],
     loadedUsers: [],
     loadedEvents: [],
+    loadedColors: [],
     user: null,
     loading: false,
     error: null
@@ -26,6 +27,9 @@ export const store = new Vuex.Store({
     },
     createUser(state, payload) {
       state.loadedUsers.push(payload)
+    },
+    setLoadedColors(state, payload) {
+      state.loadedColors = payload
     },
     setLoadedEvents(state, payload) {
       state.loadedEvents = payload
@@ -214,6 +218,30 @@ export const store = new Vuex.Store({
         })
     },
 
+    loadColors({
+      commit
+    }) {
+      db.collection("colors").get()
+        .then(function(querySnapshot) {
+          const colors = []
+          querySnapshot.forEach(function(doc) {
+            const obj = doc.data()
+            colors.push({
+              id: doc.id,
+              disp_name: obj.disp_name,
+              color: obj.color,
+              dark: obj.dark
+            })
+          });
+          commit('setLoadedColors', colors)
+        })
+        .catch(
+          (error) => {
+            console.log(error)
+          }
+        )
+    },
+
     signUserIn({
       commit
     }, payload) {
@@ -282,6 +310,9 @@ export const store = new Vuex.Store({
     },
     loadedEvents(state) {
       return state.loadedEvents
+    },
+    loadedColors(state) {
+      return state.loadedColors
     },
     user(state) {
       return state.user

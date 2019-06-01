@@ -50,7 +50,7 @@
           </v-layout>
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <v-select name="color" :items="['green lighten-1', 'purple lighten-2', 'amber lighten-1', 'cyan lighten-1', 'red lighten-1']" label="Farbe" required v-model="color" prepend-icon="color_lens" ></v-select>
+              <v-select  item-text="disp_name" item-value="color" name="color" :items="colors" label="Farbe" required v-model="color" prepend-icon="color_lens" ></v-select>
             </v-flex>
           </v-layout>
           <v-layout row>
@@ -85,6 +85,9 @@ export default {
         this.end_time !== '' &&
         this.descr !== '' &&
         this.color !== ''
+    },
+    colors() {
+      return this.$store.getters.loadedColors
     }
   },
   methods: {
