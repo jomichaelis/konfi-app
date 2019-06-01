@@ -9,11 +9,11 @@
     </v-toolbar-title>
     <v-spacer></v-spacer>
 
-    <v-btn flat color="purple" router to='/login'>
+    <v-btn flat color="purple" router to='/login' v-if="!loggedIn">
       <span>Anmelden</span>
       <v-icon right>lock_open</v-icon>
     </v-btn>
-    <v-btn flat color="purple">
+    <v-btn flat color="purple" v-if="loggedIn">
       <span>Abmelden</span>
       <v-icon right>exit_to_app</v-icon>
     </v-btn>
@@ -99,6 +99,11 @@ export default {
         text: 'Kalendereinträge',
         route: '/addevent'
       }]
+    }
+  },
+  computed: {
+    loggedIn() {
+      return (this.$store.getters.user !== null)
     }
   }
 }
