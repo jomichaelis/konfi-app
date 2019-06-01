@@ -40,7 +40,7 @@
           </v-layout>
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <v-select name="color" :items="['blue', 'red darken-4', 'green darken-4', 'white']" label="Farbe" required v-model="color" prepend-icon="color_lens" ></v-select>
+              <v-select  item-text="disp_name" item-value="color" name="color" :items="colors" label="Farbe" required v-model="color" prepend-icon="color_lens" ></v-select>
             </v-flex>
           </v-layout>
           <v-layout row>
@@ -73,6 +73,9 @@ export default {
         this.date !== '' &&
         this.pfarrer !== '' &&
         this.color !== ''
+    },
+    colors() {
+      return this.$store.getters.loadedColors
     }
   },
   methods: {
