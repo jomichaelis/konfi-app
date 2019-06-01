@@ -90,10 +90,14 @@ export default {
         icon: 'edit',
         text: 'Add Gottesdienst',
         route: '/addgodi'
-      }, {
+      },{
         icon: 'edit',
         text: 'Add User',
         route: '/adduser'
+      },{
+        icon: 'edit',
+        text: 'Kalendereinträge',
+        route: '/addevent'
       }]
     }
   }

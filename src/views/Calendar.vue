@@ -35,31 +35,12 @@
 </template>
 
 <script>
-import db from '@/fb'
 import format from 'date-fns/format'
 export default {
-  data() {
-    return {
-      events: []
-    }
-  },
   computed: {
-    sortedEvents: function() {
-      return this.events.sort((a, b) => a['date'] < b['date'] ? -1 : 1)
+    sortedEvents() {
+      return this.$store.getters.loadedEvents.sort((a, b) => a['date'] < b['date'] ? -1 : 1)
     }
-  },
-  created() {
-    db.collection('events').onSnapshot(res => {
-      const changes = res.docChanges();
-      changes.forEach(change => {
-        if (change.type === 'added') {
-          this.events.push({
-            ...change.doc.data(),
-            id: change.doc.id
-          })
-        }
-      })
-    })
   }
 }
 </script>

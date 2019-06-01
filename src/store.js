@@ -9,6 +9,7 @@ export const store = new Vuex.Store({
   state: {
     loadedGodis: [],
     loadedUsers: [],
+    loadedEvents: [],
     user: null,
     loading: false,
     error: null
@@ -26,6 +27,12 @@ export const store = new Vuex.Store({
     createUser(state, payload) {
       state.loadedUsers.push(payload)
     },
+    setLoadedEvents(state, payload) {
+      state.loadedEvents = payload
+    },
+    createEvent(state, payload) {
+      state.loadedEvents.push(payload)
+    },
     setUser(state, payload) {
       state.user = payload
     },
@@ -40,6 +47,8 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
+
+    /*handle load and store of godis*/
     loadGodis({
       commit
     }) {
@@ -88,6 +97,32 @@ export const store = new Vuex.Store({
           console.error(error);
         })
     },
+
+    /*handle load and store of users*/
+    loadUsers({
+      commit
+    }) {
+      db.collection("user").get()
+        .then(function(querySnapshot) {
+          const users = []
+          querySnapshot.forEach(function(doc) {
+            const obj = doc.data()
+            users.push({
+              id: doc.id,
+              first_name: obj.first_name,
+              last_name: obj.last_name,
+              avatar: obj.avatar,
+              role: obj.role
+            })
+          });
+          commit('setLoadedUsers', users)
+        })
+        .catch(
+          (error) => {
+            console.log(error)
+          }
+        )
+    },
     createUser({
       commit
     }, payload) {
@@ -125,23 +160,28 @@ export const store = new Vuex.Store({
         })
       // Reach out to firebase and store it
     },
-    loadUsers({
+
+
+    /*handle load and store of events*/
+    loadEvents({
       commit
     }) {
-      db.collection("user").get()
+      db.collection("events").get()
         .then(function(querySnapshot) {
-          const users = []
+          const events = []
           querySnapshot.forEach(function(doc) {
             const obj = doc.data()
-            users.push({
+            events.push({
               id: doc.id,
-              first_name: obj.first_name,
-              last_name: obj.last_name,
-              avatar: obj.avatar,
-              role: obj.role
+              title: obj.title,
+              date: obj.date,
+              start_time: obj.start_time,
+              end_time: obj.end_time,
+              descr: obj.descr,
+              color: obj.color
             })
           });
-          commit('setLoadedUsers', users)
+          commit('setLoadedEvents', events)
         })
         .catch(
           (error) => {
@@ -149,6 +189,31 @@ export const store = new Vuex.Store({
           }
         )
     },
+    createEvent({
+      commit
+    }, payload) {
+      const event = {
+        title: payload.title,
+        date: payload.date,
+        start_time: payload.start_time,
+        end_time: payload.end_time,
+        descr: payload.descr,
+        color: payload.color
+      }
+      const id = event.date + "_" + event.title
+      // Add a new document with a generated id.
+      db.collection('events').doc(id).set(event)
+        .then(() => {
+          commit('createEvent', {
+            ...event,
+            id: id
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+    },
+
     signUserIn({
       commit
     }, payload) {
@@ -194,6 +259,9 @@ export const store = new Vuex.Store({
     },
     loadedUsers(state) {
       return state.loadedUsers
+    },
+    loadedEvents(state) {
+      return state.loadedEvents
     },
     user(state) {
       return state.user
