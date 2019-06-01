@@ -1,10 +1,10 @@
 <template>
-<div class="home" v-if="loggedIn">
-  <v-flex xs12 text-xs-center mt-5>
+<div class="home">
+  <v-flex xs12 text-xs-center mt-5 v-if="loggedIn">
     <h1 class="purple--text">Home</h1>
   </v-flex>
 
-  <v-container class="my-5">
+  <v-container class="my-5" v-if="loggedIn">
     <v-layout row wrap justify-center>
     </v-layout>
     <v-card class="mt-5 mx-auto" max-width="600">
@@ -52,11 +52,17 @@
 
   </v-container>
 
+  <WelcomePage v-if="!loggedIn" class="mt-4"/>
+
 </div>
 </template>
 
 <script>
+import WelcomePage from '@/components/WelcomePage'
 export default {
+  components: {
+    WelcomePage
+  },
   data: () => ({
     labels: [
       'Mai',
