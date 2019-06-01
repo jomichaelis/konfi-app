@@ -104,6 +104,7 @@ export default {
   methods: {
     onSignout() {
       this.$store.dispatch('signUserOut', {})
+      this.$router.push('/')
     }
   },
   computed: {
