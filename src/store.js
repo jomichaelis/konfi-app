@@ -75,15 +75,14 @@ export const store = new Vuex.Store({
         pfarrer: payload.pfarrer,
         color: payload.color
       }
+      const id = godi.date + "_" + godi.title
       // Add a new document with a generated id.
-      db.collection('worships').add(godi)
-        .then((data) => {
-          const key = data.id;
+      db.collection('worships').doc(id).set(godi)
+        .then(() => {
           commit('createGodi', {
             ...godi,
-            id: key
+            id: id
           });
-          console.log(key)
         })
         .catch((error) => {
           console.error(error);
@@ -100,26 +99,24 @@ export const store = new Vuex.Store({
       let key
       let filename
       let ext
+      const id = user.last_name + "_" + user.first_name
+      console.log(id)
       // Add a new document with a generated id.
-      db.collection('user').add(user)
-        .then((data) => {
-          key = data.id;
-          return key
-        })
-        .then(key => {
+      db.collection('user').doc(id).set(user)
+        .then(() => {
           filename = payload.image.name
           ext = filename.slice(filename.lastIndexOf('.'))
-          return firebase.storage().ref('user/' + key + ext).put(payload.image)
+          return firebase.storage().ref('user/' + id + ext).put(payload.image)
         })
         .then(() => {
-          firebase.storage().ref('user/' + key + ext).getDownloadURL().then(function(downloadURL) {
-            db.collection('user').doc(key).update({
+          firebase.storage().ref('user/' + id + ext).getDownloadURL().then(function(downloadURL) {
+            db.collection('user').doc(id).update({
                 avatar: downloadURL
               }),
               commit('createUser', {
                 ...user,
                 avatar: downloadURL,
-                id: key
+                id: id
               })
           })
         })
