@@ -13,7 +13,7 @@
       <span>Anmelden</span>
       <v-icon right>lock_open</v-icon>
     </v-btn>
-    <v-btn flat color="purple" v-if="loggedIn">
+    <v-btn flat color="purple" v-if="loggedIn" @click="onSignout">
       <span>Abmelden</span>
       <v-icon right>exit_to_app</v-icon>
     </v-btn>
@@ -99,6 +99,11 @@ export default {
         text: 'Kalendereinträge',
         route: '/addevent'
       }]
+    }
+  },
+  methods: {
+    onSignout() {
+      this.$store.dispatch('signUserOut', {})
     }
   },
   computed: {
