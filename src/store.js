@@ -253,7 +253,7 @@ export const store = new Vuex.Store({
             commit('setLoading', false)
             const newUser = {
               id: user.id,
-              visitedGodis: []
+              email: payload.email
             }
             commit('setUser', newUser)
           }
