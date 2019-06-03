@@ -23,12 +23,12 @@
     <v-img :src="require('@/assets/purple_6.jpg')" height="100%">
       <v-layout fill-height tag="v-list" column>
         <v-list>
-          <v-list-tile avatar>
-            <v-list-tile-avatar color="white">
-              <v-img :src="require('@/assets/elkb.png')" height="34" contain />
-            </v-list-tile-avatar>
-            <v-list-tile-title class="title">
-              {{user.email}}
+          <v-list-tile avatar class="mb-2">
+            <v-avatar class="white">
+              <img :src="avatar" alt="alt">
+            </v-avatar>
+            <v-list-tile-title class="title ml-4">
+              {{username}}
             </v-list-tile-title>
           </v-list-tile>
           <v-divider />
@@ -126,29 +126,32 @@ export default {
     loggedIn() {
       return (this.$store.getters.user !== null)
     },
-    user() {
-      return this.$store.getters.user
+    username() {
+      return this.$store.getters.findUser
+    },
+    avatar() {
+      return this.$store.getters.getAvatar
     }
   }
 }
 </script>
 
 <style lang="scss">
-  #app-drawer {
+#app-drawer {
     .v-list__tile {
-      width: 100%;
-      border-radius: 4px;
-      &--buy {
-        margin-top: auto;
-        margin-bottom: 17px;
-      }
+        width: 100%;
+        border-radius: 4px;
+        &--buy {
+            margin-top: auto;
+            margin-bottom: 17px;
+        }
     }
     .v-image__image--contain {
-      top: 9px;
-      height: 60%;
+        top: 9px;
+        height: 60%;
     }
     div.v-responsive.v-image > div.v-responsive__content {
-      overflow-y: auto;
+        overflow-y: auto;
     }
-  }
+}
 </style>

@@ -119,6 +119,8 @@ export const store = new Vuex.Store({
               id: doc.id,
               first_name: obj.first_name,
               last_name: obj.last_name,
+              email: obj.email,
+              admin: obj.admin,
               avatar: obj.avatar,
               role: obj.role
             })
@@ -359,8 +361,20 @@ export const store = new Vuex.Store({
       }
     },
     user(state) {
-      //return state.user
-      return true
+      return state.user
+      //return true
+    },
+    findUser(state) {
+      var value = state.loadedUsers.filter(function(elem) {
+        if (elem.email === state.user.email) return elem;
+      });
+      return value[0]["first_name"]
+    },
+    getAvatar(state) {
+      var value = state.loadedUsers.filter(function(elem) {
+        if (elem.email === state.user.email) return elem;
+      });
+      return value[0]["avatar"]
     },
     loading(state) {
       return state.loading
