@@ -20,19 +20,19 @@
   </v-toolbar>
 
   <v-navigation-drawer app v-model="drawer" class="purple" v-if="loggedIn" dark>
-    <v-img :src="image" :gradient="sidebarOverlayGradiant" height="100%">
+    <v-img :src="require('@/assets/purple_6.jpg')" height="100%">
       <v-layout class="fill-height" tag="v-list" column>
         <v-list>
           <v-list-tile avatar>
             <v-list-tile-avatar color="white">
-              <v-img :src="logo" height="34" contain />
+              <v-img :src="require('@/assets/elkb.png')" height="34" contain />
             </v-list-tile-avatar>
             <v-list-tile-title class="title">
               {{user.email}}
             </v-list-tile-title>
           </v-list-tile>
           <v-divider />
-          <v-list-tile v-for="link in links" :key="link.text" router :to="link.route">
+          <v-list-tile v-for="link in links" v-if="getactive(link.route)" :key="link.text" router :to="link.route">
             <v-list-tile-action>
               <v-icon class="white--text">{{ link.icon }}</v-icon>
             </v-list-tile-action>
@@ -50,6 +50,16 @@
             <v-list-tile-content>
               <v-list-tile-title class="white--text">{{ link.text }}</v-list-tile-title>
             </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+        <v-list>
+          <v-list-tile disabled active-class="primary" class="v-list-item v-list__tile--buy" to="/upgrade">
+            <v-list-tile-action>
+              <v-icon>mdi-package-up</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title class="font-weight-light">
+              Upgrade To PRO
+            </v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-layout>
@@ -102,6 +112,10 @@ export default {
         icon: 'edit',
         text: 'Kalendereinträge',
         route: '/addevent'
+      }, {
+        icon: 'settings',
+        text: 'Admin Settings',
+        route: '/adminsettings'
       }]
     }
   },
@@ -109,6 +123,12 @@ export default {
     onSignout() {
       this.$store.dispatch('signUserOut', {})
       this.$router.push('/')
+    },
+    getactive(link) {
+      if (link === '/') {
+        return true
+      }
+      return this.$store.getters.getactive(link.substr(1))
     }
   },
   computed: {
@@ -116,8 +136,6 @@ export default {
       return (this.$store.getters.user !== null)
     },
     user() {
-      console.log(this.$store.getters.user)
-      console.log("HELLO")
       return this.$store.getters.user
     }
   }

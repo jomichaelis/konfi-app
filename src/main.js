@@ -17,5 +17,6 @@ new Vue({
     this.$store.dispatch('loadUsers')
     this.$store.dispatch('loadEvents')
     this.$store.dispatch('loadColors')
+    this.$store.dispatch('loadAdminSettings')
   }
 }).$mount('#app')

@@ -11,6 +11,7 @@ import AddGodi from './views/AddGodi.vue'
 import AddUser from './views/AddUser.vue'
 import AddEvent from './views/AddEvent.vue'
 import Documents from './views/Documents.vue'
+import AdminSettings from './views/AdminSettings'
 
 Vue.use(Router)
 
@@ -72,6 +73,11 @@ export default new Router({
       path: '/documents',
       name: 'documents',
       component: Documents
+    },
+    {
+      path: '/adminsettings',
+      name: 'adminsettings',
+      component: AdminSettings
     }
   ]
 })
