@@ -372,13 +372,13 @@ export const store = new Vuex.Store({
       //return true
     },
     findUser(state) {
-      var value = state.loadedUsers.filter(function(elem) {
+      var value = state.loadedPersons.filter(function(elem) {
         if (elem.email === state.user.email) return elem;
       });
       return value[0]["first_name"]
     },
     getAvatar(state) {
-      var value = state.loadedUsers.filter(function(elem) {
+      var value = state.loadedPersons.filter(function(elem) {
         if (elem.email === state.user.email) return elem;
       });
       return value[0]["avatar"]
