@@ -1,5 +1,5 @@
 <template>
-<div class="contacts" v-if="loggedIn">
+<div class="contacts" v-if="loggedIn && getactive('contacts')">
   <v-flex xs12 text-xs-center mt-5>
     <h1 class="purple--text">Kontakte</h1>
   </v-flex>
@@ -74,6 +74,11 @@ export default {
     },
     loggedIn() {
       return (this.$store.getters.user !== null)
+    }
+  },
+  methods: {
+    getactive(link) {
+      return this.$store.getters.getactive(link)
     }
   }
 }

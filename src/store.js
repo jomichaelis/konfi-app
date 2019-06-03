@@ -11,6 +11,7 @@ export const store = new Vuex.Store({
     loadedUsers: [],
     loadedEvents: [],
     loadedColors: [],
+    loadedAdminSettings: [],
     user: null,
     loading: false,
     error: null
@@ -36,6 +37,9 @@ export const store = new Vuex.Store({
     },
     createEvent(state, payload) {
       state.loadedEvents.push(payload)
+    },
+    updateAdminSettings(state, payload) {
+      state.loadedAdminSettings = payload
     },
     setUser(state, payload) {
       state.user = payload
@@ -290,6 +294,38 @@ export const store = new Vuex.Store({
       commit
     }) {
       commit('clearError')
+    },
+
+    updateAdminSettings({
+      commit
+    }, payload) {
+      const settings = {
+        calendar: payload.calendar,
+        contacts: payload.contacts,
+        documents: payload.documents,
+        worships: payload.worships
+      }
+      db.collection('settings').doc("adminsettings").update(settings)
+        .then(() => {
+          commit('updateAdminSettings', settings);
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+    },
+    loadAdminSettings({
+      commit
+    }) {
+      db.collection("settings").doc("adminsettings").get()
+        .then(function(doc) {
+          const settings = doc.data()
+          commit('updateAdminSettings', settings)
+        })
+        .catch(
+          (error) => {
+            console.log(error)
+          }
+        )
     }
   },
   getters: {
@@ -314,8 +350,17 @@ export const store = new Vuex.Store({
     loadedColors(state) {
       return state.loadedColors
     },
+    loadedAdminSettings(state) {
+      return state.loadedAdminSettings
+    },
+    getactive(state) {
+      return (link) => {
+        return state.loadedAdminSettings[link]
+      }
+    },
     user(state) {
-      return state.user
+      //return state.user
+      return true
     },
     loading(state) {
       return state.loading

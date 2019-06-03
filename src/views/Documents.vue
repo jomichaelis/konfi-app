@@ -1,5 +1,5 @@
 <template>
-<div class="home" v-if="loggedIn">
+<div class="home" v-if="loggedIn && getactive('documents')">
   <v-flex xs12 text-xs-center mt-5>
     <h1 class="purple--text">Dokumente</h1>
   </v-flex>
@@ -82,6 +82,9 @@ export default {
     next() {
       const active = parseInt(this.active)
       this.active = (active < 2 ? active + 1 : 0)
+    },
+    getactive(link) {
+      return this.$store.getters.getactive(link)
     }
   }
 }
