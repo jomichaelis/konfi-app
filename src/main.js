@@ -14,7 +14,7 @@ new Vue({
   render: h => h(App),
   created() {
     this.$store.dispatch('loadGodis')
-    this.$store.dispatch('loadUsers')
+    this.$store.dispatch('loadPersons')
     this.$store.dispatch('loadEvents')
     this.$store.dispatch('loadColors')
     this.$store.dispatch('loadAdminSettings')

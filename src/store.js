@@ -8,7 +8,7 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
   state: {
     loadedGodis: [],
-    loadedUsers: [],
+    loadedPersons: [],
     loadedEvents: [],
     loadedColors: [],
     loadedAdminSettings: [],
@@ -23,11 +23,11 @@ export const store = new Vuex.Store({
     createGodi(state, payload) {
       state.loadedGodis.push(payload)
     },
-    setLoadedUsers(state, payload) {
-      state.loadedUsers = payload
+    setLoadedPersons(state, payload) {
+      state.loadedPersons = payload
     },
-    createUser(state, payload) {
-      state.loadedUsers.push(payload)
+    createPerson(state, payload) {
+      state.loadedPersons.push(payload)
     },
     setLoadedColors(state, payload) {
       state.loadedColors = payload
@@ -106,16 +106,16 @@ export const store = new Vuex.Store({
         })
     },
 
-    /*handle load and store of users*/
-    loadUsers({
+    /*handle load and store of persons*/
+    loadPersons({
       commit
     }) {
       db.collection("user").get()
         .then(function(querySnapshot) {
-          const users = []
+          const persons = []
           querySnapshot.forEach(function(doc) {
             const obj = doc.data()
-            users.push({
+            persons.push({
               id: doc.id,
               first_name: obj.first_name,
               last_name: obj.last_name,
@@ -123,7 +123,7 @@ export const store = new Vuex.Store({
               role: obj.role
             })
           });
-          commit('setLoadedUsers', users)
+          commit('setLoadedPersons', persons)
         })
         .catch(
           (error) => {
@@ -131,21 +131,29 @@ export const store = new Vuex.Store({
           }
         )
     },
-    createUser({
+    createPerson({
       commit
     }, payload) {
-      const user = {
+      let person = {
         first_name: payload.first_name,
         last_name: payload.last_name,
-        role: payload.role
+        role: payload.role,
+        email: payload.email,
+        password: payload.password,
+        admin: payload.admin
       }
       let key
       let filename
       let ext
-      const id = user.last_name + "_" + user.first_name
-      console.log(id)
-      // Add a new document with a generated id.
-      db.collection('user').doc(id).set(user)
+      const id = person.last_name + "_" + person.first_name
+      firebase.auth().createUserWithEmailAndPassword(person.email, person.password).catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        })
+        .then(() => {
+          person.password = null,
+          db.collection('user').doc(id).set(person)
+        })
         .then(() => {
           filename = payload.image.name
           ext = filename.slice(filename.lastIndexOf('.'))
@@ -156,8 +164,8 @@ export const store = new Vuex.Store({
             db.collection('user').doc(id).update({
                 avatar: downloadURL
               }),
-              commit('createUser', {
-                ...user,
+              commit('createPerson', {
+                ...person,
                 avatar: downloadURL,
                 id: id
               })
@@ -166,7 +174,6 @@ export const store = new Vuex.Store({
         .catch((error) => {
           console.log(error)
         })
-      // Reach out to firebase and store it
     },
 
 
@@ -341,8 +348,8 @@ export const store = new Vuex.Store({
         })
       }
     },
-    loadedUsers(state) {
-      return state.loadedUsers
+    loadedPersons(state) {
+      return state.loadedPersons
     },
     loadedEvents(state) {
       return state.loadedEvents

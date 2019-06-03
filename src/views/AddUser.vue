@@ -7,15 +7,15 @@
   <v-container>
     <v-layout row>
       <v-flex xs12>
-        <form @submit.prevent="onCreateUser">
+        <form @submit.prevent="onCreatePerson">
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <v-text-field name="first_name" label="Vorname" id="first_name" v-model="first_name" required prepend-icon="edit"></v-text-field>
+              <v-text-field name="first_name" label="Vorname" id="first_name" v-model="first_name" required prepend-icon="person_add"></v-text-field>
             </v-flex>
           </v-layout>
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <v-text-field name="last_name" label="Nachname" id="last_name" v-model="last_name" required prepend-icon="edit"></v-text-field>
+              <v-text-field name="last_name" label="Nachname" id="last_name" v-model="last_name" required prepend-icon="person_add"></v-text-field>
             </v-flex>
           </v-layout>
           <v-layout row>
@@ -32,6 +32,26 @@
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
               <v-select name="role" :items="['lead', 'teamer', 'konfi']" label="Rolle" required v-model="role" prepend-icon="edit"></v-select>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs12 sm6 offset-sm3>
+              <v-text-field name="email" label="E-Mail" id="email" v-model="email" required prepend-icon="mail"></v-text-field>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs12 sm6 offset-sm3>
+              <v-text-field name="password" label="Passwort" id="password" v-model="password" type="password" required prepend-icon="lock"></v-text-field>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs12 sm6 offset-sm3>
+              <v-text-field name="password2" label="Passwort erneut eingeben" id="password2" v-model="password2" type="password" required prepend-icon="lock"></v-text-field>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs12 sm6 offset-sm3>
+              <v-switch v-model="admin" color="purple" label="Admin" prepend-icon="star"></v-switch>
             </v-flex>
           </v-layout>
           <v-layout row>
@@ -53,6 +73,10 @@ export default {
       first_name: '',
       last_name: '',
       role: '',
+      email: '',
+      password: '',
+      password2: '',
+      admin: false,
       imageUrl: '',
       image: null
     }
@@ -62,6 +86,10 @@ export default {
       return this.first_name !== '' &&
         this.last_name !== '' &&
         this.role !== '' &&
+        this.email !== '' &&
+        this.password !== '' &&
+        this.password === this.password2 &&
+        this.admin !== null &&
         this.imageUrl !== ''
     },
     loggedIn() {
@@ -69,38 +97,41 @@ export default {
     }
   },
   methods: {
-    onCreateUser() {
+    onCreatePerson() {
       if (!this.formIsValid) {
         return
       }
       if (!this.image) {
         return
       }
-      const userData = {
+      const personData = {
         first_name: this.first_name,
         last_name: this.last_name,
         role: this.role,
+        email: this.email,
+        password: this.password,
+        admin: this.admin,
         image: this.image,
       }
-      this.$store.dispatch('createUser', userData)
+      this.$store.dispatch('createPerson', personData)
       this.$router.push('/contacts')
     },
     onClickAvatarUpload() {
       this.$refs.fileInput.click()
     },
-    onAvatarPicked (event) {
-        const files = event.target.files
-        let filename = files[0].name
-        if (filename.lastIndexOf('.') <= 0) {
-          return alert('Please add a valid file!')
-        }
-        const fileReader = new FileReader()
-        fileReader.addEventListener('load', () => {
-          this.imageUrl = fileReader.result
-        })
-        fileReader.readAsDataURL(files[0])
-        this.image = files[0]
+    onAvatarPicked(event) {
+      const files = event.target.files
+      let filename = files[0].name
+      if (filename.lastIndexOf('.') <= 0) {
+        return alert('Please add a valid file!')
       }
+      const fileReader = new FileReader()
+      fileReader.addEventListener('load', () => {
+        this.imageUrl = fileReader.result
+      })
+      fileReader.readAsDataURL(files[0])
+      this.image = files[0]
+    }
   }
 }
 </script>
