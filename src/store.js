@@ -134,17 +134,26 @@ export const store = new Vuex.Store({
     createPerson({
       commit
     }, payload) {
-      const person = {
+      let person = {
         first_name: payload.first_name,
         last_name: payload.last_name,
-        role: payload.role
+        role: payload.role,
+        email: payload.email,
+        password: payload.password,
+        admin: payload.admin
       }
       let key
       let filename
       let ext
       const id = person.last_name + "_" + person.first_name
-      console.log(id)
-      db.collection('user').doc(id).set(person)
+      firebase.auth().createUserWithEmailAndPassword(person.email, person.password).catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        })
+        .then(() => {
+          person.password = null,
+          db.collection('user').doc(id).set(person)
+        })
         .then(() => {
           filename = payload.image.name
           ext = filename.slice(filename.lastIndexOf('.'))
@@ -165,7 +174,6 @@ export const store = new Vuex.Store({
         .catch((error) => {
           console.log(error)
         })
-      // Reach out to firebase and store it
     },
 
 

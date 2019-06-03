@@ -41,12 +41,17 @@
           </v-layout>
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <v-text-field name="password" label="Passwort" id="password" v-model="password" required prepend-icon="lock"></v-text-field>
+              <v-text-field name="password" label="Passwort" id="password" v-model="password" type="password" required prepend-icon="lock"></v-text-field>
             </v-flex>
           </v-layout>
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <v-switch v-model="admin" color="purple" label="Admin" required required prepend-icon="star"></v-switch>
+              <v-text-field name="password2" label="Passwort erneut eingeben" id="password2" v-model="password2" type="password" required prepend-icon="lock"></v-text-field>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs12 sm6 offset-sm3>
+              <v-switch v-model="admin" color="purple" label="Admin" prepend-icon="star"></v-switch>
             </v-flex>
           </v-layout>
           <v-layout row>
@@ -70,6 +75,7 @@ export default {
       role: '',
       email: '',
       password: '',
+      password2: '',
       admin: false,
       imageUrl: '',
       image: null
@@ -82,6 +88,7 @@ export default {
         this.role !== '' &&
         this.email !== '' &&
         this.password !== '' &&
+        this.password === this.password2 &&
         this.admin !== null &&
         this.imageUrl !== ''
     },
