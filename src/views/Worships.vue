@@ -1,5 +1,5 @@
 <template>
-<div class="worships" v-if="loggedIn">
+<div class="worships" v-if="loggedIn && getactive('worships')">
   <v-flex xs12 text-xs-center mt-5>
     <h1 class="purple--text">Gottesdienste</h1>
   </v-flex>
@@ -58,6 +58,11 @@ export default {
     },
     loggedIn() {
       return (this.$store.getters.user !== null)
+    }
+  },
+  methods: {
+    getactive(link) {
+      return this.$store.getters.getactive(link)
     }
   }
 }

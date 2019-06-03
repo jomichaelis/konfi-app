@@ -19,9 +19,9 @@
     </v-btn>
   </v-toolbar>
 
-  <v-navigation-drawer app v-model="drawer" class="purple" v-if="loggedIn" dark>
+  <v-navigation-drawer id="app-drawer" app v-model="drawer" class="purple" v-if="loggedIn" dark>
     <v-img :src="require('@/assets/purple_6.jpg')" height="100%">
-      <v-layout class="fill-height" tag="v-list" column>
+      <v-layout fill-height tag="v-list" column>
         <v-list>
           <v-list-tile avatar>
             <v-list-tile-avatar color="white">
@@ -32,34 +32,25 @@
             </v-list-tile-title>
           </v-list-tile>
           <v-divider />
-          <v-list-tile v-for="link in links" v-if="getactive(link.route)" :key="link.text" router :to="link.route">
+          <v-list-tile v-for="link in links" v-if="getactive(link.route)" :key="link.text" router :to="link.route" class="list-item v-list__tile">
             <v-list-tile-action>
               <v-icon class="white--text">{{ link.icon }}</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title class="white--text">{{ link.text }}</v-list-tile-title>
+              <v-list-tile-title class="white--text body-2">{{ link.text }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
+        <v-spacer></v-spacer>
         <v-subheader class="mt-3 white--text">Admin</v-subheader>
         <v-list>
-          <v-list-tile v-for="link in adminlinks" :key="link.text" router :to="link.route">
+          <v-list-tile v-for="link in adminlinks" :key="link.text" router :to="link.route" class="list-item v-list__tile">
             <v-list-tile-action>
-              <v-icon class="white--text">{{ link.icon }}</v-icon>
+              <v-icon color="grey darken-1">{{ link.icon }}</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title class="white--text">{{ link.text }}</v-list-tile-title>
+              <v-list-tile-title class="grey--text text--darken-1 body-2">{{ link.text }}</v-list-tile-title>
             </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-        <v-list>
-          <v-list-tile disabled active-class="primary" class="v-list-item v-list__tile--buy" to="/upgrade">
-            <v-list-tile-action>
-              <v-icon>mdi-package-up</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-title class="font-weight-light">
-              Upgrade To PRO
-            </v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-layout>
@@ -142,5 +133,22 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+  #app-drawer {
+    .v-list__tile {
+      width: 100%;
+      border-radius: 4px;
+      &--buy {
+        margin-top: auto;
+        margin-bottom: 17px;
+      }
+    }
+    .v-image__image--contain {
+      top: 9px;
+      height: 60%;
+    }
+    div.v-responsive.v-image > div.v-responsive__content {
+      overflow-y: auto;
+    }
+  }
 </style>

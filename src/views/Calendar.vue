@@ -1,5 +1,5 @@
 <template>
-<div class="calendar" v-if="loggedIn">
+<div class="calendar" v-if="loggedIn && getactive('calendar')">
   <v-flex xs12 text-xs-center mt-5>
     <h1 class="purple--text">Kalender</h1>
   </v-flex>
@@ -43,6 +43,11 @@ export default {
     },
     loggedIn() {
       return (this.$store.getters.user !== null)
+    }
+  },
+  methods: {
+    getactive(link) {
+      return this.$store.getters.getactive(link)
     }
   }
 }
