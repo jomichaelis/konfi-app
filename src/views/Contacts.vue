@@ -10,7 +10,7 @@
       <v-flex xs12 text-xs-center mt-5>
         <h2>Leitung</h2>
       </v-flex>
-      <v-flex xs12 sm6 v-for="leader in user.slice().reverse()" :key="leader.first_name" v-if="leader.role === 'lead'">
+      <v-flex xs12 sm6 v-for="leader in persons.slice().reverse()" :key="leader.first_name" v-if="leader.role === 'lead'">
         <v-card flat class="text-xs-center ma-3" color="purple lighten-4">
           <v-responsive class="pt-4">
             <v-avatar size="100" class="grey lighten-2">
@@ -29,7 +29,7 @@
       <v-flex xs12 text-xs-center mt-5>
         <h2>Mitarbeiter</h2>
       </v-flex>
-      <v-flex xs12 sm6 md4 lg3 v-for="teamer in user" :key="teamer.first_name" v-if="teamer.role === 'teamer'">
+      <v-flex xs12 sm6 md4 lg3 v-for="teamer in persons" :key="teamer.first_name" v-if="teamer.role === 'teamer'">
         <v-card flat class="text-xs-center ma-3" color="purple lighten-5">
           <v-responsive class="pt-4">
             <v-avatar size="100" class="grey lighten-2">
@@ -48,7 +48,7 @@
       <v-flex xs12 text-xs-center mt-5>
         <h2>Konfis</h2>
       </v-flex>
-      <v-flex xs12 sm6 md4 lg3 v-for="konfi in user" :key="konfi.first_name" v-if="konfi.role === 'konfi'">
+      <v-flex xs12 sm6 md4 lg3 v-for="konfi in persons" :key="konfi.first_name" v-if="konfi.role === 'konfi'">
         <v-card flat class="text-xs-center ma-3">
           <v-responsive class="pt-4">
             <v-avatar size="100" class="grey lighten-2">
@@ -69,8 +69,8 @@
 <script>
 export default {
   computed: {
-    user() {
-      return this.$store.getters.loadedUsers
+    persons() {
+      return this.$store.getters.loadedPersons
     },
     loggedIn() {
       return (this.$store.getters.user !== null)
